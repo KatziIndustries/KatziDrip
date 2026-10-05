@@ -31,7 +31,7 @@ public static class Drip
                 throw new InvalidDataException($"Line {index} didn't contain a '='");
 
             string varName = line[0..line.IndexOf('=')];
-            string value = line[line.IndexOf('=')..line.Length];
+            string value = line[(line.IndexOf('=') + 1)..line.Length];
 
             switch (varName)
             {
@@ -69,8 +69,11 @@ public static class Drip
         if (!Directory.Exists(ConfigPath))
         {
             Directory.CreateDirectory(ConfigPath);
+        }
 
-            using var _ = File.Create(DefaultThemePath);
+        if (!File.Exists(DefaultThemePath))
+        {
+            using (var fs = File.Create(DefaultThemePath)) { }
             File.WriteAllText(DefaultThemePath, DefaultTheme.Theme);
         }
     }
