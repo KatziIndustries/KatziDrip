@@ -1,14 +1,87 @@
-﻿namespace KatziDrip;
+﻿using System.Runtime.InteropServices;
+
+namespace KatziDrip;
 
 public static class Drip
 {
-    public static readonly string FontName = "Iosevka-Medium";
-    public static readonly string SmallFontName = "Iosevka-Regular";
+    public const string DEFAULT_THEME_NAME = "Katzi";
+    public const string FILE_EXTENSION = ".kolor";
 
-    public static readonly Color BaseColor = new(20, 20, 25, 255);
-    public static readonly Color LightColor = new(24, 24, 29, 255);
-    public static readonly Color VeryLightColor = new(50, 50, 55, 255);
-    public static readonly Color DarkColor = new(15, 15, 20, 255);
+    public static readonly string ConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "KatziDrip");
+    public static readonly string DefaultThemePath = Path.Combine(ConfigPath, $"{DEFAULT_THEME_NAME}{FILE_EXTENSION}");
+
+    /// <summary>
+    /// Loads the theme with the specified name.
+    /// The name is decided by the name of the file without its extension.
+    /// </summary>
+    public static void Load(string themeName)
+    {
+        CreateConfigDirIfNotExists();
+
+        string fileContent = File.ReadAllText(Path.Combine(ConfigPath, $"{themeName}{FILE_EXTENSION}"));
+        string[] lines = fileContent.Split('\n');
+
+        int index = 0;
+        foreach (string line in lines)
+        {
+            if (line == string.Empty)
+                continue;
+
+            if (!line.Contains('='))
+                throw new InvalidDataException($"Line {index} didn't contain a '='");
+
+            string varName = line[0..line.IndexOf('=')];
+            string value = line[line.IndexOf('=')..line.Length];
+
+            switch (varName)
+            {
+                case "FontName":
+                    FontName = value;
+                    break;
+
+                case "SmallFontName":
+                    SmallFontName = value;
+                    break;
+
+                case "BaseColor":
+                    BaseColor = Color.Parse(value);
+                    break;
+
+                case "LightColor":
+                    LightColor = Color.Parse(value);
+                    break;
+
+                case "VeryLightColor":
+                    VeryLightColor = Color.Parse(value);
+                    break;
+
+                case "DarkColor":
+                    DarkColor = Color.Parse(value);
+                    break;
+            }
+
+            index++;
+        }
+    }
+
+    private static void CreateConfigDirIfNotExists()
+    {
+        if (!Directory.Exists(ConfigPath))
+        {
+            Directory.CreateDirectory(ConfigPath);
+
+            using var _ = File.Create(DefaultThemePath);
+            File.WriteAllText(DefaultThemePath, DefaultTheme.Theme);
+        }
+    }
+
+    public static string FontName { get; private set; } = "";
+    public static string SmallFontName { get; private set; } = "";
+
+    public static Color BaseColor { get; private set; }
+    public static Color LightColor { get; private set; }
+    public static Color VeryLightColor { get; private set; }
+    public static Color DarkColor { get; private set; }
 
     public static readonly Color White = new(255, 255, 255, 255);
     public static readonly Color Black = new(0, 0, 0, 255);

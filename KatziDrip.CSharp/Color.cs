@@ -11,4 +11,19 @@ public readonly struct Color(int r, int g, int b, int a)
     {
         return System.Drawing.Color.FromArgb(A, R, G, B);
     }
+
+    public static Color Parse(string rgbaString)
+    {
+        string[] values = rgbaString.Split(' ');
+
+        if (values.Length != 4)
+            throw new Exception($"RGBA string ({rgbaString}) wasn't in the right format.");
+
+        return new(
+            int.Parse(values[0]),
+            int.Parse(values[1]),
+            int.Parse(values[2]),
+            int.Parse(values[3])
+        );
+    }
 }
