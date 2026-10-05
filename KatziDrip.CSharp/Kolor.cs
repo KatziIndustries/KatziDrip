@@ -1,18 +1,18 @@
 namespace KatziDrip;
 
-public readonly struct Color(int r, int g, int b, int a)
+public readonly struct Kolor(int r, int g, int b, int a)
 {
     public readonly int R = r;
     public readonly int G = g;
     public readonly int B = b;
     public readonly int A = a;
 
-    public System.Drawing.Color ToSystemColor()
+    public System.Drawing.Color ToColor()
     {
         return System.Drawing.Color.FromArgb(A, R, G, B);
     }
 
-    public static Color Parse(string rgbaString)
+    public static Kolor Parse(string rgbaString)
     {
         string[] values = rgbaString.Split(' ');
 

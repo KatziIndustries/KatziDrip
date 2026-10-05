@@ -44,19 +44,19 @@ public static class Drip
                     break;
 
                 case "BaseColor":
-                    BaseColor = Color.Parse(value);
+                    BaseColor = Kolor.Parse(value);
                     break;
 
                 case "LightColor":
-                    LightColor = Color.Parse(value);
+                    LightColor = Kolor.Parse(value);
                     break;
 
                 case "VeryLightColor":
-                    VeryLightColor = Color.Parse(value);
+                    VeryLightColor = Kolor.Parse(value);
                     break;
 
                 case "DarkColor":
-                    DarkColor = Color.Parse(value);
+                    DarkColor = Kolor.Parse(value);
                     break;
             }
 
@@ -78,13 +78,13 @@ public static class Drip
     public static string FontName { get; private set; } = "";
     public static string SmallFontName { get; private set; } = "";
 
-    public static Color BaseColor { get; private set; }
-    public static Color LightColor { get; private set; }
-    public static Color VeryLightColor { get; private set; }
-    public static Color DarkColor { get; private set; }
+    public static Kolor BaseColor { get; private set; }
+    public static Kolor LightColor { get; private set; }
+    public static Kolor VeryLightColor { get; private set; }
+    public static Kolor DarkColor { get; private set; }
 
-    public static readonly Color White = new(255, 255, 255, 255);
-    public static readonly Color Black = new(0, 0, 0, 255);
+    public static readonly Kolor White = new(255, 255, 255, 255);
+    public static readonly Kolor Black = new(0, 0, 0, 255);
 
-    public static readonly Color RoyalBlue = new(48, 92, 222, 255);
+    public static readonly Kolor RoyalBlue = new(48, 92, 222, 255);
 }
