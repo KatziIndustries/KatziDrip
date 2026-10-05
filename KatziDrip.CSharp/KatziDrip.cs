@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace KatziDrip;
+﻿namespace KatziDrip;
 
 public static class Drip
 {
