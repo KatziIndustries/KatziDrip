@@ -74,6 +74,14 @@ public static class Drip
             using (var fs = File.Create(DefaultThemePath)) { }
             File.WriteAllText(DefaultThemePath, DefaultTheme.Theme);
         }
+        else
+        {
+            string fileContent = File.ReadAllText(DefaultThemePath);
+            if (fileContent != DefaultTheme.Theme)
+            {
+                File.WriteAllText(DefaultThemePath, DefaultTheme.Theme);
+            }
+        }
     }
 
     public static string FontName { get; private set; } = "";
