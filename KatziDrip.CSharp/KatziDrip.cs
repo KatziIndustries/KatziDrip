@@ -33,12 +33,8 @@ public static class Drip
 
             switch (varName)
             {
-                case "FontName":
-                    FontName = value;
-                    break;
-
-                case "SmallFontName":
-                    SmallFontName = value;
+                case "FontFamily":
+                    FontFamily = value;
                     break;
 
                 case "BaseColor":
@@ -84,8 +80,7 @@ public static class Drip
         }
     }
 
-    public static string FontName { get; private set; } = "";
-    public static string SmallFontName { get; private set; } = "";
+    public static string FontFamily { get; private set; } = "";
 
     public static Kolor BaseColor { get; private set; }
     public static Kolor LightColor { get; private set; }
