@@ -37,6 +37,10 @@ public static class Drip
                     FontFamily = value;
                     break;
 
+                case "AccentColor":
+                    AccentColor = Kolor.Parse(value);
+                    break;
+
                 case "BaseColor":
                     BaseColor = Kolor.Parse(value);
                     break;
@@ -86,9 +90,8 @@ public static class Drip
     public static Kolor LightColor { get; private set; }
     public static Kolor VeryLightColor { get; private set; }
     public static Kolor DarkColor { get; private set; }
+    public static Kolor AccentColor { get; private set; }
 
     public static readonly Kolor White = new(255, 255, 255, 255);
     public static readonly Kolor Black = new(0, 0, 0, 255);
-
-    public static readonly Kolor RoyalBlue = new(48, 92, 222, 255);
 }
