@@ -2,11 +2,11 @@
 
 public static class Drip
 {
-    public const string DEFAULT_THEME_NAME = "Katzi";
+    public static string DefaultThemeName => GetDefaultThemeName();
     public const string FILE_EXTENSION = ".kolor";
 
     public static readonly string ConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "KatziDrip");
-    public static readonly string DefaultThemePath = Path.Combine(ConfigPath, $"{DEFAULT_THEME_NAME}{FILE_EXTENSION}");
+    public static readonly string DefaultThemePath = Path.Combine(ConfigPath, $"{DefaultThemeName}{FILE_EXTENSION}");
 
     /// <summary>
     /// Loads the theme with the specified name.
@@ -84,10 +84,34 @@ public static class Drip
         }
     }
 
+    public static bool ThemeExists(string themeName)
+    {
+        return File.Exists(Path.Combine(ConfigPath, themeName + FILE_EXTENSION));
+    }
+
+    private static string GetDefaultThemeName()
+    {
+        string defaultThemePath = Path.Combine(ConfigPath, "DefaultTheme.txt");
+
+        if (!File.Exists(defaultThemePath))
+        {
+            using (var fs = File.Create(defaultThemePath)) { }
+            File.WriteAllText(defaultThemePath, "Katzi");
+        }
+
+        string themeName = File.ReadAllText(defaultThemePath);
+
+        if (ThemeExists(themeName))
+            return themeName;
+        else
+            return "Katzi";
+    }
+
     public static string FontFamily { get; private set; } = "";
 
     public static Kolor BaseColor { get; private set; }
     public static Kolor LightColor { get; private set; }
+
     public static Kolor VeryLightColor { get; private set; }
     public static Kolor DarkColor { get; private set; }
     public static Kolor AccentColor { get; private set; }
