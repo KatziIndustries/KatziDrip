@@ -3,10 +3,14 @@
 public static class Drip
 {
     public static string DefaultThemeName => GetDefaultThemeName();
+
+    public const string KATZI_THEME_NAME = "Katzi";
     public const string FILE_EXTENSION = ".kolor";
 
     public static readonly string ConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "KatziDrip");
-    public static readonly string DefaultThemePath = Path.Combine(ConfigPath, $"{DefaultThemeName}{FILE_EXTENSION}");
+    public static string DefaultThemePath => Path.Combine(ConfigPath, $"{DefaultThemeName}{FILE_EXTENSION}");
+
+    public static readonly string KatziThemePath = Path.Combine(ConfigPath, $"{KATZI_THEME_NAME}{FILE_EXTENSION}");
 
     /// <summary>
     /// Loads the theme with the specified name.
@@ -69,17 +73,17 @@ public static class Drip
             Directory.CreateDirectory(ConfigPath);
         }
 
-        if (!File.Exists(DefaultThemePath))
+        if (!File.Exists(KatziThemePath))
         {
-            using (var fs = File.Create(DefaultThemePath)) { }
-            File.WriteAllText(DefaultThemePath, DefaultTheme.Theme);
+            using (var fs = File.Create(KatziThemePath)) { }
+            File.WriteAllText(KatziThemePath, DefaultTheme.Theme);
         }
         else
         {
-            string fileContent = File.ReadAllText(DefaultThemePath);
+            string fileContent = File.ReadAllText(KatziThemePath);
             if (fileContent != DefaultTheme.Theme)
             {
-                File.WriteAllText(DefaultThemePath, DefaultTheme.Theme);
+                File.WriteAllText(KatziThemePath, DefaultTheme.Theme);
             }
         }
     }
@@ -91,6 +95,8 @@ public static class Drip
 
     private static string GetDefaultThemeName()
     {
+        CreateConfigDirIfNotExists();
+
         string defaultThemePath = Path.Combine(ConfigPath, "DefaultTheme.txt");
 
         if (!File.Exists(defaultThemePath))
@@ -99,7 +105,7 @@ public static class Drip
             File.WriteAllText(defaultThemePath, "Katzi");
         }
 
-        string themeName = File.ReadAllText(defaultThemePath);
+        string themeName = File.ReadAllText(defaultThemePath).Trim();
 
         if (ThemeExists(themeName))
             return themeName;
