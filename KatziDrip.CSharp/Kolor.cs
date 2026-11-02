@@ -1,18 +1,18 @@
 namespace KatziDrip;
 
-public readonly struct Kolor(int r, int g, int b, int a)
+public struct Kolor(int r, int g, int b, int a)
 {
-    public readonly int R = r;
-    public readonly int G = g;
-    public readonly int B = b;
-    public readonly int A = a;
+    public int R = r;
+    public int G = g;
+    public int B = b;
+    public int A = a;
 
-    public System.Drawing.Color ToColor()
+    public readonly System.Drawing.Color ToColor()
     {
         return System.Drawing.Color.FromArgb(A, R, G, B);
     }
 
-    public static Kolor Parse(string rgbaString)
+    public static Kolor FromRgba(string rgbaString)
     {
         string[] values = rgbaString.Split(' ');
 
@@ -24,6 +24,21 @@ public readonly struct Kolor(int r, int g, int b, int a)
             int.Parse(values[1]),
             int.Parse(values[2]),
             int.Parse(values[3])
+        );
+    }
+
+    public static Kolor FromHex(string hex)
+    {
+        hex = hex.TrimStart('#');
+
+        if (hex.Length != 6)
+            throw new FormatException("Expected format: #RRGGBB");
+
+        return new(
+            Convert.ToByte(hex.Substring(0, 2), 16),
+            Convert.ToByte(hex.Substring(2, 2), 16),
+            Convert.ToByte(hex.Substring(4, 2), 16),
+            255
         );
     }
 }

@@ -29,6 +29,9 @@ public static class Drip
             if (line == string.Empty)
                 continue;
 
+            if (line.Trim().StartsWith("#"))
+                continue;
+
             if (!line.Contains('='))
                 throw new InvalidDataException($"Line {index} didn't contain a '='");
 
@@ -41,24 +44,28 @@ public static class Drip
                     FontFamily = value;
                     break;
 
-                case "AccentColor":
-                    AccentColor = Kolor.Parse(value);
+                case "PrimaryAccentColor":
+                    PrimaryAccentColor = Kolor.FromHex(value);
+                    break;
+
+                case "SecondaryAccentColor":
+                    SecondaryAccentColor = Kolor.FromHex(value);
                     break;
 
                 case "BaseColor":
-                    BaseColor = Kolor.Parse(value);
+                    BaseColor = Kolor.FromHex(value);
                     break;
 
                 case "LightColor":
-                    LightColor = Kolor.Parse(value);
+                    LightColor = Kolor.FromHex(value);
                     break;
 
                 case "VeryLightColor":
-                    VeryLightColor = Kolor.Parse(value);
+                    VeryLightColor = Kolor.FromHex(value);
                     break;
 
                 case "DarkColor":
-                    DarkColor = Kolor.Parse(value);
+                    DarkColor = Kolor.FromHex(value);
                     break;
             }
 
@@ -120,7 +127,9 @@ public static class Drip
 
     public static Kolor VeryLightColor { get; private set; }
     public static Kolor DarkColor { get; private set; }
-    public static Kolor AccentColor { get; private set; }
+
+    public static Kolor PrimaryAccentColor { get; private set; }
+    public static Kolor SecondaryAccentColor { get; private set; }
 
     public static readonly Kolor White = new(255, 255, 255, 255);
     public static readonly Kolor Black = new(0, 0, 0, 255);
