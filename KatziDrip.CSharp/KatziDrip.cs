@@ -36,7 +36,7 @@ public static class Drip
                 throw new InvalidDataException($"Line {index} didn't contain a '='");
 
             string varName = line[0..line.IndexOf('=')];
-            string value = line[(line.IndexOf('=') + 1)..line.Length];
+            string value = line[(line.IndexOf('=') + 1)..line.Length].Trim();
 
             switch (varName)
             {
