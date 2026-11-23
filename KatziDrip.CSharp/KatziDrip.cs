@@ -1,6 +1,6 @@
-﻿namespace KatziDrip;
+﻿namespace Katzi.Drip;
 
-public static class Drip
+public static class KatziDrip
 {
     public static string DefaultThemeName => GetDefaultThemeName();
 

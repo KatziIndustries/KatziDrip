@@ -4,16 +4,17 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.1.1</Version>
+    <IsAotCompatible>true</IsAotCompatible>
+    <PublishDir>publish</PublishDir>
+    
+    <Version>1.1.2</Version>
     <Authors>AaronoLW</Authors>
-    <Description>Theme library for Katzi software</Description>
+    <Description>Theming library for Katzi software</Description>
     <PackageProjectUrl>https://github.com/KatziIndustries/KatziDrip</PackageProjectUrl>
     <RepositoryUrl>https://github.com/KatziIndustries/KatziDrip.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <IsAotCompatible>true</IsAotCompatible>
-    <PublishDir>publish</PublishDir>
   </PropertyGroup>
 
   <ItemGroup>

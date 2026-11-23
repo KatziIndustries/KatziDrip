@@ -1,3 +1,5 @@
+namespace Katzi.Drip;
+
 internal static class DefaultTheme
 {
     public static string Theme =

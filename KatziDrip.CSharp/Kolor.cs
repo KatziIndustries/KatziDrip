@@ -1,4 +1,4 @@
-namespace KatziDrip;
+namespace Katzi.Drip;
 
 public struct Kolor(int r, int g, int b, int a)
 {
