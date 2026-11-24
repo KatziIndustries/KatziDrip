@@ -1,11 +1,11 @@
 namespace Katzi.Drip;
 
-public struct Kolor(int r, int g, int b, int a)
+public struct Kolor(byte r, byte g, byte b, byte a)
 {
-    public int R = r;
-    public int G = g;
-    public int B = b;
-    public int A = a;
+    public byte R = r;
+    public byte G = g;
+    public byte B = b;
+    public byte A = a;
 
     public readonly System.Drawing.Color ToColor()
     {
@@ -20,10 +20,10 @@ public struct Kolor(int r, int g, int b, int a)
             throw new Exception($"RGBA string ({rgbaString}) wasn't in the right format.");
 
         return new(
-            int.Parse(values[0]),
-            int.Parse(values[1]),
-            int.Parse(values[2]),
-            int.Parse(values[3])
+            byte.Parse(values[0]),
+            byte.Parse(values[1]),
+            byte.Parse(values[2]),
+            byte.Parse(values[3])
         );
     }
 
@@ -31,14 +31,25 @@ public struct Kolor(int r, int g, int b, int a)
     {
         hex = hex.TrimStart('#');
 
-        if (hex.Length != 6)
-            throw new FormatException("Expected format: #RRGGBB");
+        if (hex.Length == 6)
+        {
+            return new(
+                Convert.ToByte(hex.Substring(0, 2), 16),
+                Convert.ToByte(hex.Substring(2, 2), 16),
+                Convert.ToByte(hex.Substring(4, 2), 16),
+                255
+            );
+        }
+        else if (hex.Length == 8)
+        {
+            return new(
+                Convert.ToByte(hex.Substring(0, 2), 16),
+                Convert.ToByte(hex.Substring(2, 2), 16),
+                Convert.ToByte(hex.Substring(4, 2), 16),
+                Convert.ToByte(hex.Substring(6, 2), 16)
+            );
+        }
 
-        return new(
-            Convert.ToByte(hex.Substring(0, 2), 16),
-            Convert.ToByte(hex.Substring(2, 2), 16),
-            Convert.ToByte(hex.Substring(4, 2), 16),
-            255
-        );
+        throw new FormatException("Expected format: #RRGGBB or #RRGGBBAA");
     }
 }

@@ -7,7 +7,7 @@
     <IsAotCompatible>true</IsAotCompatible>
     <PublishDir>publish</PublishDir>
     
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <Authors>AaronoLW</Authors>
     <Description>Theming library for Katzi software</Description>
     <PackageProjectUrl>https://github.com/KatziIndustries/KatziDrip</PackageProjectUrl>
@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="README.md" Pack="true" PackagePath="/" />
+    <None Include="../README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
 </Project>
